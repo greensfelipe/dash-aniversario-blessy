@@ -207,9 +207,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
     <div class="sidebar-group-label">Dados</div>
     <a class="sidebar-link" data-section="s07"><span class="num">07</span> Tracker de GMV</a>
     <a class="sidebar-link" data-section="s08"><span class="num">08</span> 📥 Lançar Relatório</a>
-    <a class="sidebar-link" data-section="s11"><span class="num">11</span> 🗒️ Relatórios Feitos</a>
     <a class="sidebar-link" data-section="s09"><span class="num">09</span> 📰 Gerar Boletim</a>
-    <a class="sidebar-link" data-section="s10"><span class="num">10</span> 🗂️ Boletins Feitos</a>
   </div>
   <div class="sidebar-footer">Campanha Aniversário &middot; TikTok Shop<br>OKR R$ 250k &middot; 30/04 → 12/05</div>
 </nav>
@@ -738,6 +736,34 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
   <div class="callout callout-blue">
     <strong>Dica para Carol:</strong> Após Isabel salvar o relatório, abra a aba "Tracker de GMV" (07) e clique em "↻ Atualizar" para ver os dados atualizados e usar no boletim do dia seguinte.
   </div>
+
+  <h3 class="subsection-title">🗒️ Relatórios Feitos</h3>
+  <p style="font-size:0.78rem;color:#6b7280;margin-bottom:14px">Histórico dos relatórios diários — clique em <strong>Editar</strong> pra carregar no formulário acima ou em <strong>PDF</strong> pra baixar.</p>
+
+  <div class="table-wrapper">
+    <div class="table-title">
+      Histórico de Relatórios
+      <button class="refresh-btn" onclick="carregarListaRelatorios()">↻ Atualizar</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50px">Dia</th>
+          <th style="width:130px">Data</th>
+          <th style="width:130px">GMV</th>
+          <th style="width:80px">Vídeos</th>
+          <th style="width:70px">Lives</th>
+          <th>Obs.</th>
+          <th style="width:130px">Atualizado</th>
+          <th style="width:240px">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="relatorios-body">
+        <tr class="loading-row"><td colspan="8">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
 </div>
 
@@ -873,15 +899,11 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
   </div>
 
   <div class="callout callout-blue" style="margin-top:20px">
-    <strong>Como funciona:</strong> Carol seleciona o dia, preenche os campos e clica em <strong>Salvar Boletim</strong>. O preview à direita atualiza ao vivo. Depois é só clicar em <strong>📋 Copiar pro WhatsApp</strong> e colar no grupo de creators. Se já existe um boletim salvo para o dia, "↻ Carregar do dia" traz os dados. Todos os boletins salvos ficam listados na aba <strong>10 · Boletins Feitos</strong>.
+    <strong>Como funciona:</strong> Carol seleciona o dia, preenche os campos e clica em <strong>Salvar Boletim</strong>. O preview à direita atualiza ao vivo. Depois é só clicar em <strong>📋 Copiar pro WhatsApp</strong> e colar no grupo de creators. Se já existe um boletim salvo para o dia, "↻ Carregar do dia" traz os dados. Os boletins ficam listados abaixo.
   </div>
-  <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
-</div>
 
-<!-- S10 — BOLETINS FEITOS -->
-<div id="s10" class="section">
-  <h1 class="section-title">🗂️ Boletins Feitos</h1>
-  <p class="section-subtitle">Todos os boletins salvos no Supabase — copie pro WhatsApp, baixe PDF ou edite</p>
+  <h3 class="subsection-title">🗂️ Boletins Feitos</h3>
+  <p style="font-size:0.78rem;color:#6b7280;margin-bottom:14px">Todos os boletins salvos. Copie pro WhatsApp, baixe PDF ou edite (carrega no formulário acima).</p>
 
   <div class="table-wrapper">
     <div class="table-title">
@@ -904,44 +926,6 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
     </table>
   </div>
 
-  <div class="callout callout-blue" style="margin-top:16px">
-    <strong>Dica:</strong> O botão <strong>🖨️ Baixar PDF</strong> abre uma janela formatada e usa o diálogo de impressão do navegador — escolha <em>"Salvar como PDF"</em> ou <em>"Microsoft Print to PDF"</em> como destino.
-  </div>
-  <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
-</div>
-
-<!-- S11 — RELATÓRIOS FEITOS -->
-<div id="s11" class="section">
-  <h1 class="section-title">🗒️ Relatórios Feitos</h1>
-  <p class="section-subtitle">Histórico dos relatórios diários lançados por Isabel — editar ou baixar PDF</p>
-
-  <div class="table-wrapper">
-    <div class="table-title">
-      Histórico de Relatórios
-      <button class="refresh-btn" onclick="carregarListaRelatorios()">↻ Atualizar</button>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:50px">Dia</th>
-          <th style="width:130px">Data</th>
-          <th style="width:130px">GMV</th>
-          <th style="width:80px">Vídeos</th>
-          <th style="width:70px">Lives</th>
-          <th>Obs.</th>
-          <th style="width:130px">Atualizado</th>
-          <th style="width:240px">Ações</th>
-        </tr>
-      </thead>
-      <tbody id="relatorios-body">
-        <tr class="loading-row"><td colspan="8">Carregando...</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue" style="margin-top:16px">
-    <strong>Dica:</strong> Editar volta pra aba <strong>08</strong> com os campos preenchidos. Baixar PDF gera uma página de fechamento do dia com KPIs e observações.
-  </div>
   <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
 </div>
 
@@ -1817,8 +1801,8 @@ function showSection(id) {
   if (link) link.classList.add('active');
   document.querySelector('.main').scrollTo(0, 0);
   if (id === 's07') carregarDados();
-  if (id === 's10') carregarListaBoletins();
-  if (id === 's11') carregarListaRelatorios();
+  if (id === 's08') carregarListaRelatorios();
+  if (id === 's09') carregarListaBoletins();
 }
 
 links.forEach(link => link.addEventListener('click', () => showSection(link.dataset.section)));
