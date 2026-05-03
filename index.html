@@ -207,6 +207,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
     <div class="sidebar-group-label">Dados</div>
     <a class="sidebar-link" data-section="s07"><span class="num">07</span> Tracker de GMV</a>
     <a class="sidebar-link" data-section="s08"><span class="num">08</span> 📥 Lançar Relatório</a>
+    <a class="sidebar-link" data-section="s09"><span class="num">09</span> 📰 Gerar Boletim</a>
   </div>
   <div class="sidebar-footer">Campanha Aniversário &middot; TikTok Shop<br>OKR R$ 250k &middot; 30/04 → 12/05</div>
 </nav>
@@ -275,6 +276,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
       <div class="person-body"><ul>
         <li>Produzir boletim diário (17 dias)</li>
         <li>Cadência grupo (urgência) + 1 a 1 (perf.)</li>
+        <li>Briefar agências da campanha + premiações</li>
         <li>Huntar creators com narrativa de Maio</li>
         <li>Análise stories IG + check tarde</li>
         <li>Acompanhar progresso da Corridinha</li>
@@ -429,8 +431,9 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
   <h3 class="subsection-title">Carol</h3>
   <div class="action-card border-amber" style="margin-bottom:16px;"><h4>⚡ Sprints — Carol</h4><ul>
     <li>Produzir e enviar boletim diário (17 dias) no grupo de creators</li>
-    <li>Escrever cadência de grupo com narrativa de urgência (Mães + 5.5)</li>
+    <li>Escrever cadência de grupo com narrativa de urgência (Mães + 5.5 + Aniversário)</li>
     <li>Escrever cadência 1 a 1 por natureza de performance</li>
+    <li>Briefar agências da campanha + premiações (mecânica + Corridinha)</li>
     <li>Huntar creators no IG usando narrativa de campanha</li>
     <li>Análise de boletim stories IG (manhã) + check parcial tarde</li>
     <li>Comunicar progresso de cada creator vs. metas Bronze/Prata/Ouro</li>
@@ -741,6 +744,121 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
   <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
 </div>
 
+<!-- S09 — GERAR BOLETIM -->
+<div id="s09" class="section">
+  <h1 class="section-title">📰 Gerar Boletim do Dia</h1>
+  <p class="section-subtitle">Carol preenche e gera o boletim formatado para enviar no grupo de creators</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
+
+    <!-- FORMULÁRIO -->
+    <div class="form-card" style="max-width:none;">
+      <h3>Boletim Diário</h3>
+      <p class="form-sub">Salve no Supabase e gere um texto pronto pra colar no WhatsApp.</p>
+
+      <div class="form-group">
+        <label>Dia do Boletim</label>
+        <select id="b-dia">
+          <option value="">Selecione o dia</option>
+          <option value="1">D1 — 30/04 Qua · Campanha no ar</option>
+          <option value="2">D2 — 01/05 Qui · Promoção</option>
+          <option value="3">D3 — 02/05 Sex · Promoção</option>
+          <option value="4">D4 — 03/05 Sab · Promoção</option>
+          <option value="5">D5 — 04/05 Dom · Véspera 5.5</option>
+          <option value="6">D6 — 05/05 Seg · ⚡ Pico 5.5</option>
+          <option value="7">D7 — 06/05 Ter · Semana das Mães</option>
+          <option value="8">D8 — 07/05 Qua · Semana das Mães</option>
+          <option value="9">D9 — 08/05 Qui · Final 5.5</option>
+          <option value="10">D10 — 09/05 Sex · Semana das Mães</option>
+          <option value="11">D11 — 10/05 Sab · Véspera Mães</option>
+          <option value="12">D12 — 11/05 Dom · 💐 Dia das Mães + Live</option>
+          <option value="13">D13 — 12/05 Seg · Encerramento + Live</option>
+          <option value="14">D14 — 13/05 Ter · Análise</option>
+          <option value="15">D15 — 14/05 Qua · Análise</option>
+          <option value="16">D16 — 15/05 Qui · Análise</option>
+          <option value="17">D17 — 16/05 Sex · Encerramento final</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fase da campanha</label>
+        <input type="text" id="b-fase" placeholder="ex: Dia 1 de 17 · A campanha começou. Vamos.">
+      </div>
+
+      <div class="form-group">
+        <label>🔥 Vídeo mais performático (ontem)</label>
+        <input type="text" id="b-video" placeholder="link do vídeo ou nome">
+      </div>
+
+      <div class="form-group">
+        <label>🚀 Top vídeos da promo (1 link por linha)</label>
+        <textarea id="b-top" placeholder="link do vídeo 1&#10;link do vídeo 2&#10;link do vídeo 3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>💬 Roteiros / Ganchos do dia (1 ideia por linha)</label>
+        <textarea id="b-roteiros" placeholder="ideia de hook 1&#10;ideia de hook 2&#10;ideia de hook 3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>🎵 Trend / Dica do dia</label>
+        <textarea id="b-trend" placeholder="Áudio viral, compliance, observação do algoritmo..."></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-submit" id="btn-salvar-boletim" onclick="salvarBoletim()">💾 Salvar Boletim</button>
+        <button class="btn-submit" style="background:#fff;color:var(--green-dark);border:1px solid var(--green-dark)" onclick="copiarBoletim()">📋 Copiar pro WhatsApp</button>
+        <button class="btn-submit" style="background:#fff;color:var(--charcoal);border:1px solid #d1d5db" onclick="carregarBoletim()">↻ Carregar do dia</button>
+      </div>
+      <div id="boletim-msg" class="form-msg"></div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div>
+      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;color:var(--green-dark);margin-bottom:10px">Preview do Boletim</h3>
+      <div id="boletim-preview" style="background:#0f1e16;border-radius:14px;overflow:hidden;color:#fff;box-shadow:0 12px 30px rgba(0,0,0,0.2)">
+        <div style="padding:18px 20px 14px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08)">
+          <div style="display:inline-block;background:rgba(191,249,164,0.12);border:1px solid rgba(191,249,164,0.25);border-radius:99px;padding:3px 12px;font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">Campanha Aniversário · TikTok Shop</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.6rem;color:var(--lime);letter-spacing:0.02em;line-height:1">Boletim do Dia</div>
+          <div id="prev-sub" style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:4px;font-weight:700;letter-spacing:0.05em">Selecione um dia</div>
+        </div>
+        <div style="padding:14px 16px 20px;display:flex;flex-direction:column;gap:8px">
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
+            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">📩 Fase da Campanha</div>
+            <div id="prev-fase" style="font-size:0.78rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.6;white-space:pre-wrap">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
+            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">🔥 Vídeo mais performático (ontem)</div>
+            <div id="prev-video" style="font-size:0.75rem;color:var(--lime);font-weight:600;word-break:break-all">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
+            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">🚀 Top vídeos da promo</div>
+            <div id="prev-top" style="font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.7;word-break:break-all">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
+            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">💬 Roteiros / Ganchos do dia</div>
+            <div id="prev-roteiros" style="font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.7">—</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
+            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">🎵 Trend / Dica do dia</div>
+            <div id="prev-trend" style="font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.6;white-space:pre-wrap">—</div>
+          </div>
+        </div>
+        <div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,0.07);text-align:center">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.95rem;color:var(--lime);letter-spacing:0.06em">Blessy Greens &amp; Superfoods 🌿</div>
+          <div style="font-size:0.6rem;color:rgba(255,255,255,0.3);margin-top:2px;font-weight:700;letter-spacing:0.08em">Campanha Aniversário · Bora bater essa meta! 💪</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout callout-blue" style="margin-top:20px">
+    <strong>Como funciona:</strong> Carol seleciona o dia, preenche os campos e clica em <strong>Salvar Boletim</strong>. O preview à direita atualiza ao vivo. Depois é só clicar em <strong>📋 Copiar pro WhatsApp</strong> e colar no grupo de creators. Se já existe um boletim salvo para o dia, "↻ Carregar do dia" traz os dados.
+  </div>
+  <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
+</div>
+
 </div><!-- /main -->
 
 <div class="nav-indicator"><kbd>←</kbd> <kbd>→</kbd> navegar seções</div>
@@ -750,6 +868,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
 const SUPA_URL  = 'https://swoynaejnbkeoecnhozw.supabase.co';
 const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3b3luYWVqbmJrZW9lY25ob3p3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDk1MjIsImV4cCI6MjA5MDgyNTUyMn0.ttTT9GuD1FnUIlHh_wf9GsGbqEk_auSJTGFBQF6zab8';
 const TABLE     = 'relatorio_maio_2026';
+const TABLE_BOL = 'boletim_maio_2026';
 
 // ── METAS DA CAMPANHA ────────────────────────────────────────────
 // OKR = 50% da meta de Maio (R$ 500k). 13 dias de campanha ativa.
@@ -994,6 +1113,238 @@ async function salvarRelatorio() {
     btn.textContent = '💾 Salvar Relatório';
   }
 }
+
+// ── BOLETIM: 17 dias (rótulos para preview/sub) ─────────────────
+const DIAS_BOL = {
+  1: 'Dia 1 · 30/04 Qua',
+  2: 'Dia 2 · 01/05 Qui',
+  3: 'Dia 3 · 02/05 Sex',
+  4: 'Dia 4 · 03/05 Sab',
+  5: 'Dia 5 · 04/05 Dom',
+  6: 'Dia 6 · 05/05 Seg ⚡ 5.5',
+  7: 'Dia 7 · 06/05 Ter',
+  8: 'Dia 8 · 07/05 Qua',
+  9: 'Dia 9 · 08/05 Qui',
+  10: 'Dia 10 · 09/05 Sex',
+  11: 'Dia 11 · 10/05 Sab',
+  12: 'Dia 12 · 11/05 Dom 💐',
+  13: 'Dia 13 · 12/05 Seg',
+  14: 'Dia 14 · 13/05 Ter',
+  15: 'Dia 15 · 14/05 Qua',
+  16: 'Dia 16 · 15/05 Qui',
+  17: 'Dia 17 · 16/05 Sex'
+};
+
+// ── BOLETIM: atualiza preview ao vivo ────────────────────────────
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+function renderListaPreview(texto) {
+  const linhas = (texto || '').split('\n').map(l => l.trim()).filter(Boolean);
+  if (!linhas.length) return '—';
+  return linhas.map((l, i) => `<div style="display:flex;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;color:var(--lime);min-width:18px">${i+1}</span><span style="flex:1">${escapeHtml(l)}</span></div>`).join('');
+}
+
+function atualizarPreview() {
+  const dia      = document.getElementById('b-dia').value;
+  const fase     = document.getElementById('b-fase').value;
+  const video    = document.getElementById('b-video').value;
+  const top      = document.getElementById('b-top').value;
+  const roteiros = document.getElementById('b-roteiros').value;
+  const trend    = document.getElementById('b-trend').value;
+
+  document.getElementById('prev-sub').textContent = dia ? DIAS_BOL[dia] : 'Selecione um dia';
+  document.getElementById('prev-fase').innerHTML = fase ? escapeHtml(fase) : '—';
+  document.getElementById('prev-video').innerHTML = video ? escapeHtml(video) : '—';
+  document.getElementById('prev-top').innerHTML = renderListaPreview(top);
+  document.getElementById('prev-roteiros').innerHTML = renderListaPreview(roteiros);
+  document.getElementById('prev-trend').innerHTML = trend ? escapeHtml(trend) : '—';
+}
+
+// ── BOLETIM: salvar (upsert por dia) ─────────────────────────────
+async function salvarBoletim() {
+  const btn = document.getElementById('btn-salvar-boletim');
+  const msg = document.getElementById('boletim-msg');
+  msg.className = 'form-msg';
+  msg.textContent = '';
+
+  const dia      = parseInt(document.getElementById('b-dia').value);
+  const fase     = document.getElementById('b-fase').value.trim();
+  const video    = document.getElementById('b-video').value.trim();
+  const top      = document.getElementById('b-top').value.trim();
+  const roteiros = document.getElementById('b-roteiros').value.trim();
+  const trend    = document.getElementById('b-trend').value.trim();
+
+  if (!dia || !fase || !video || !top || !roteiros || !trend) {
+    msg.className = 'form-msg error';
+    msg.textContent = 'Preencha todos os campos antes de salvar.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+
+  const payload = {
+    dia,
+    fase_campanha: fase,
+    video_performatico: video,
+    top_videos_promo: top,
+    roteiros_ganchos: roteiros,
+    trend_musica_viral: trend
+  };
+
+  try {
+    const check = await fetch(
+      `${SUPA_URL}/rest/v1/${TABLE_BOL}?dia=eq.${dia}&select=id`,
+      { headers: headers() }
+    );
+    const existing = await check.json();
+
+    let res;
+    if (existing && existing.length > 0) {
+      res = await fetch(
+        `${SUPA_URL}/rest/v1/${TABLE_BOL}?dia=eq.${dia}`,
+        { method: 'PATCH', headers: { ...headers(), 'Prefer': 'return=minimal' }, body: JSON.stringify(payload) }
+      );
+    } else {
+      res = await fetch(
+        `${SUPA_URL}/rest/v1/${TABLE_BOL}`,
+        { method: 'POST', headers: { ...headers(), 'Prefer': 'return=minimal' }, body: JSON.stringify(payload) }
+      );
+    }
+
+    if (res.ok) {
+      msg.className = 'form-msg success';
+      msg.textContent = `✅ Boletim do Dia ${dia} salvo. Use "📋 Copiar pro WhatsApp" para enviar no grupo.`;
+    } else {
+      const err = await res.text();
+      throw new Error(err);
+    }
+  } catch(e) {
+    msg.className = 'form-msg error';
+    msg.textContent = 'Erro ao salvar. Detalhe: ' + e.message;
+    console.error(e);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 Salvar Boletim';
+  }
+}
+
+// ── BOLETIM: carregar dia salvo ──────────────────────────────────
+async function carregarBoletim() {
+  const dia = parseInt(document.getElementById('b-dia').value);
+  const msg = document.getElementById('boletim-msg');
+  msg.className = 'form-msg';
+  msg.textContent = '';
+
+  if (!dia) {
+    msg.className = 'form-msg error';
+    msg.textContent = 'Selecione um dia primeiro.';
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `${SUPA_URL}/rest/v1/${TABLE_BOL}?dia=eq.${dia}&select=*`,
+      { headers: headers() }
+    );
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) {
+      msg.className = 'form-msg error';
+      msg.textContent = `Nenhum boletim salvo para o Dia ${dia} ainda.`;
+      return;
+    }
+    const b = dados[0];
+    document.getElementById('b-fase').value     = b.fase_campanha || '';
+    document.getElementById('b-video').value    = b.video_performatico || '';
+    document.getElementById('b-top').value      = b.top_videos_promo || '';
+    document.getElementById('b-roteiros').value = b.roteiros_ganchos || '';
+    document.getElementById('b-trend').value    = b.trend_musica_viral || '';
+    atualizarPreview();
+    msg.className = 'form-msg success';
+    msg.textContent = `✅ Boletim do Dia ${dia} carregado.`;
+  } catch(e) {
+    msg.className = 'form-msg error';
+    msg.textContent = 'Erro ao carregar. Detalhe: ' + e.message;
+  }
+}
+
+// ── BOLETIM: copiar texto formatado pro WhatsApp ─────────────────
+function gerarTextoBoletim() {
+  const dia      = parseInt(document.getElementById('b-dia').value);
+  const fase     = document.getElementById('b-fase').value.trim();
+  const video    = document.getElementById('b-video').value.trim();
+  const top      = document.getElementById('b-top').value.trim();
+  const roteiros = document.getElementById('b-roteiros').value.trim();
+  const trend    = document.getElementById('b-trend').value.trim();
+
+  const subtitulo = dia ? DIAS_BOL[dia] : '';
+  const linhas = [];
+  linhas.push('🌿 *BOLETIM DO DIA · BLESSY*');
+  linhas.push('_Campanha Aniversário · TikTok Shop_');
+  if (subtitulo) linhas.push('_' + subtitulo + '_');
+  linhas.push('');
+  if (fase) {
+    linhas.push('📩 *FASE DA CAMPANHA*');
+    linhas.push(fase);
+    linhas.push('');
+  }
+  if (video) {
+    linhas.push('🔥 *VÍDEO MAIS PERFORMÁTICO (ONTEM)*');
+    linhas.push(video);
+    linhas.push('');
+  }
+  if (top) {
+    linhas.push('🚀 *TOP VÍDEOS DA PROMO*');
+    top.split('\n').map(l => l.trim()).filter(Boolean).forEach((l, i) => {
+      linhas.push(`${i+1}. ${l}`);
+    });
+    linhas.push('');
+  }
+  if (roteiros) {
+    linhas.push('💬 *ROTEIROS / GANCHOS DO DIA*');
+    roteiros.split('\n').map(l => l.trim()).filter(Boolean).forEach((l, i) => {
+      linhas.push(`${i+1}. ${l}`);
+    });
+    linhas.push('');
+  }
+  if (trend) {
+    linhas.push('🎵 *TREND / DICA DO DIA*');
+    linhas.push(trend);
+    linhas.push('');
+  }
+  linhas.push('Bora bater essa meta! 💪');
+  return linhas.join('\n').trim();
+}
+
+async function copiarBoletim() {
+  const msg = document.getElementById('boletim-msg');
+  msg.className = 'form-msg';
+  const texto = gerarTextoBoletim();
+  try {
+    await navigator.clipboard.writeText(texto);
+    msg.className = 'form-msg success';
+    msg.textContent = '✅ Texto do boletim copiado! Cole direto no grupo de creators.';
+  } catch(e) {
+    // fallback para browsers sem clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = texto;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(_) {}
+    document.body.removeChild(ta);
+    msg.className = 'form-msg success';
+    msg.textContent = '✅ Texto do boletim copiado!';
+  }
+}
+
+// ── BOLETIM: bind do preview ao vivo ─────────────────────────────
+['b-dia','b-fase','b-video','b-top','b-roteiros','b-trend'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', atualizarPreview);
+  if (el) el.addEventListener('change', atualizarPreview);
+});
 
 // ── NAVEGAÇÃO ────────────────────────────────────────────────────
 const links = document.querySelectorAll('.sidebar-link');
