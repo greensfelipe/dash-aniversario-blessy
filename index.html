@@ -207,6 +207,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
     <div class="sidebar-group-label">Dados</div>
     <a class="sidebar-link" data-section="s07"><span class="num">07</span> Tracker de GMV</a>
     <a class="sidebar-link" data-section="s08"><span class="num">08</span> 📥 Lançar Relatório</a>
+    <a class="sidebar-link" data-section="s11"><span class="num">11</span> 🗒️ Relatórios Feitos</a>
     <a class="sidebar-link" data-section="s09"><span class="num">09</span> 📰 Gerar Boletim</a>
     <a class="sidebar-link" data-section="s10"><span class="num">10</span> 🗂️ Boletins Feitos</a>
   </div>
@@ -670,30 +671,25 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
     <h3>Relatório de Fechamento</h3>
     <p class="form-sub">Preencha todos os campos e clique em Salvar. Os dados aparecem no Tracker (aba 07) imediatamente.</p>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>Dia (número)</label>
-        <select id="f-dia">
-          <option value="">Selecione o dia</option>
-          <option value="1">Dia 1 — 30/04 Qua</option>
-          <option value="2">Dia 2 — 01/05 Qui</option>
-          <option value="3">Dia 3 — 02/05 Sex</option>
-          <option value="4">Dia 4 — 03/05 Sab</option>
-          <option value="5">Dia 5 — 04/05 Dom</option>
-          <option value="6">Dia 6 — 05/05 Seg ⚡ 5.5</option>
-          <option value="7">Dia 7 — 06/05 Ter</option>
-          <option value="8">Dia 8 — 07/05 Qua</option>
-          <option value="9">Dia 9 — 08/05 Qui</option>
-          <option value="10">Dia 10 — 09/05 Sex</option>
-          <option value="11">Dia 11 — 10/05 Sab</option>
-          <option value="12">Dia 12 — 11/05 Dom 💐 Mães</option>
-          <option value="13">Dia 13 — 12/05 Seg (encerramento)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Data</label>
-        <input type="date" id="f-data">
-      </div>
+    <div class="form-group">
+      <label>Dia (número)</label>
+      <select id="f-dia">
+        <option value="">Selecione o dia</option>
+        <option value="1">Dia 1 — 30/04 Qua</option>
+        <option value="2">Dia 2 — 01/05 Qui</option>
+        <option value="3">Dia 3 — 02/05 Sex</option>
+        <option value="4">Dia 4 — 03/05 Sab</option>
+        <option value="5">Dia 5 — 04/05 Dom</option>
+        <option value="6">Dia 6 — 05/05 Seg ⚡ 5.5</option>
+        <option value="7">Dia 7 — 06/05 Ter</option>
+        <option value="8">Dia 8 — 07/05 Qua</option>
+        <option value="9">Dia 9 — 08/05 Qui</option>
+        <option value="10">Dia 10 — 09/05 Sex</option>
+        <option value="11">Dia 11 — 10/05 Sab</option>
+        <option value="12">Dia 12 — 11/05 Dom 💐 Mães</option>
+        <option value="13">Dia 13 — 12/05 Seg (encerramento)</option>
+      </select>
+      <p style="font-size:0.7rem;color:#9ca3af;margin-top:6px">A data é derivada automaticamente — D1=30/04, D2=01/05, ... D13=12/05.</p>
     </div>
 
     <div class="form-group">
@@ -797,8 +793,29 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
       </div>
 
       <div class="form-group">
-        <label>💬 Roteiros / Ganchos do dia (1 ideia por linha)</label>
-        <textarea id="b-roteiros" placeholder="ideia de hook 1&#10;ideia de hook 2&#10;ideia de hook 3"></textarea>
+        <label>💬 Inspirações do dia</label>
+        <p style="font-size:0.7rem;color:#9ca3af;margin:-2px 0 8px">3 ideias prontas pra creators travadas — cada uma com Hook + Copy + CTA.</p>
+
+        <div style="border:1px solid #d1d5db;border-radius:10px;padding:14px 16px;margin-bottom:10px;background:#fafafa">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;font-weight:700;color:var(--green-dark);margin-bottom:8px">Inspiração 1</div>
+          <input type="text" id="b-insp1-hook" placeholder="Hook (gancho de abertura)" style="margin-bottom:6px">
+          <input type="text" id="b-insp1-copy" placeholder="Copy (corpo do vídeo)" style="margin-bottom:6px">
+          <input type="text" id="b-insp1-cta" placeholder="CTA (chamada para ação)">
+        </div>
+
+        <div style="border:1px solid #d1d5db;border-radius:10px;padding:14px 16px;margin-bottom:10px;background:#fafafa">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;font-weight:700;color:var(--green-dark);margin-bottom:8px">Inspiração 2</div>
+          <input type="text" id="b-insp2-hook" placeholder="Hook (gancho de abertura)" style="margin-bottom:6px">
+          <input type="text" id="b-insp2-copy" placeholder="Copy (corpo do vídeo)" style="margin-bottom:6px">
+          <input type="text" id="b-insp2-cta" placeholder="CTA (chamada para ação)">
+        </div>
+
+        <div style="border:1px solid #d1d5db;border-radius:10px;padding:14px 16px;background:#fafafa">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;font-weight:700;color:var(--green-dark);margin-bottom:8px">Inspiração 3</div>
+          <input type="text" id="b-insp3-hook" placeholder="Hook (gancho de abertura)" style="margin-bottom:6px">
+          <input type="text" id="b-insp3-copy" placeholder="Copy (corpo do vídeo)" style="margin-bottom:6px">
+          <input type="text" id="b-insp3-cta" placeholder="CTA (chamada para ação)">
+        </div>
       </div>
 
       <div class="form-group">
@@ -838,8 +855,8 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
             <div id="prev-top" style="font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.7;word-break:break-all">—</div>
           </div>
           <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
-            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">💬 Roteiros / Ganchos do dia</div>
-            <div id="prev-roteiros" style="font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.7">—</div>
+            <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">💬 Inspirações do dia</div>
+            <div id="prev-inspiracoes" style="font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.6">—</div>
           </div>
           <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px">
             <div style="font-size:0.55rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime);margin-bottom:6px">🎵 Trend / Dica do dia</div>
@@ -893,6 +910,41 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
   <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
 </div>
 
+<!-- S11 — RELATÓRIOS FEITOS -->
+<div id="s11" class="section">
+  <h1 class="section-title">🗒️ Relatórios Feitos</h1>
+  <p class="section-subtitle">Histórico dos relatórios diários lançados por Isabel — editar ou baixar PDF</p>
+
+  <div class="table-wrapper">
+    <div class="table-title">
+      Histórico de Relatórios
+      <button class="refresh-btn" onclick="carregarListaRelatorios()">↻ Atualizar</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50px">Dia</th>
+          <th style="width:130px">Data</th>
+          <th style="width:130px">GMV</th>
+          <th style="width:80px">Vídeos</th>
+          <th style="width:70px">Lives</th>
+          <th>Obs.</th>
+          <th style="width:130px">Atualizado</th>
+          <th style="width:240px">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="relatorios-body">
+        <tr class="loading-row"><td colspan="8">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue" style="margin-top:16px">
+    <strong>Dica:</strong> Editar volta pra aba <strong>08</strong> com os campos preenchidos. Baixar PDF gera uma página de fechamento do dia com KPIs e observações.
+  </div>
+  <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
+</div>
+
 </div><!-- /main -->
 
 <div class="nav-indicator"><kbd>←</kbd> <kbd>→</kbd> navegar seções</div>
@@ -925,6 +977,14 @@ const DIAS = {
   11: '10/05 Sab',
   12: '11/05 Dom 💐',
   13: '12/05 Seg'
+};
+
+// Datas ISO (yyyy-mm-dd) derivadas do dia — D1 = 30/04/2026
+const DATAS_ISO = {
+  1: '2026-04-30', 2: '2026-05-01', 3: '2026-05-02', 4: '2026-05-03',
+  5: '2026-05-04', 6: '2026-05-05', 7: '2026-05-06', 8: '2026-05-07',
+  9: '2026-05-08', 10: '2026-05-09', 11: '2026-05-10', 12: '2026-05-11',
+  13: '2026-05-12'
 };
 
 // ── HEADERS ─────────────────────────────────────────────────────
@@ -1070,7 +1130,6 @@ async function salvarRelatorio() {
   msg.textContent = '';
 
   const dia    = parseInt(document.getElementById('f-dia').value);
-  const data   = document.getElementById('f-data').value;
   const gmv    = parseFloat(document.getElementById('f-gmv').value);
   const videos = parseInt(document.getElementById('f-videos').value);
   const lives  = parseInt(document.getElementById('f-lives').value);
@@ -1079,11 +1138,12 @@ async function salvarRelatorio() {
   const conting= document.getElementById('f-contingencia').checked;
   const obs    = document.getElementById('f-obs').value.trim();
 
-  if (!dia || !data || isNaN(gmv)) {
+  if (!dia || isNaN(gmv)) {
     msg.className = 'form-msg error';
-    msg.textContent = 'Preencha pelo menos: Dia, Data e GMV Total antes de salvar.';
+    msg.textContent = 'Preencha pelo menos: Dia e GMV Total antes de salvar.';
     return;
   }
+  const data = DATAS_ISO[dia];
 
   btn.disabled = true;
   btn.textContent = 'Salvando...';
@@ -1126,7 +1186,6 @@ async function salvarRelatorio() {
       msg.textContent = `✅ Relatório do Dia ${dia} salvo com sucesso! O Tracker foi atualizado.`;
       carregarDados();
       document.getElementById('f-dia').value = '';
-      document.getElementById('f-data').value = '';
       document.getElementById('f-gmv').value = '';
       document.getElementById('f-videos').value = '';
       document.getElementById('f-lives').value = '';
@@ -1180,19 +1239,62 @@ function renderListaPreview(texto) {
   return linhas.map((l, i) => `<div style="display:flex;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.85rem;color:var(--lime);min-width:18px">${i+1}</span><span style="flex:1">${escapeHtml(l)}</span></div>`).join('');
 }
 
+function parseInspiracoes(raw) {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed;
+  } catch(_) {}
+  // fallback: retrocompat — texto livre vira lista de hooks
+  const linhas = String(raw).split('\n').map(l => l.trim()).filter(Boolean);
+  return linhas.slice(0, 3).map(l => ({ hook: l, copy: '', cta: '' }));
+}
+
+function lerInspiracoesDoForm() {
+  const arr = [];
+  for (let i = 1; i <= 3; i++) {
+    const hook = document.getElementById(`b-insp${i}-hook`).value.trim();
+    const copy = document.getElementById(`b-insp${i}-copy`).value.trim();
+    const cta  = document.getElementById(`b-insp${i}-cta`).value.trim();
+    arr.push({ hook, copy, cta });
+  }
+  return arr;
+}
+
+function popularInspiracoesNoForm(inspiracoes) {
+  for (let i = 1; i <= 3; i++) {
+    const it = (inspiracoes && inspiracoes[i-1]) || { hook:'', copy:'', cta:'' };
+    document.getElementById(`b-insp${i}-hook`).value = it.hook || '';
+    document.getElementById(`b-insp${i}-copy`).value = it.copy || '';
+    document.getElementById(`b-insp${i}-cta`).value  = it.cta || '';
+  }
+}
+
+function renderInspiracoesPreview(inspiracoes) {
+  const com = (inspiracoes || []).filter(it => it && (it.hook || it.copy || it.cta));
+  if (!com.length) return '—';
+  return com.map((it, idx) => {
+    const linhas = [];
+    if (it.hook) linhas.push(`<div><span style="color:var(--lime);font-weight:700">Hook:</span> ${escapeHtml(it.hook)}</div>`);
+    if (it.copy) linhas.push(`<div><span style="color:var(--lime);font-weight:700">Copy:</span> ${escapeHtml(it.copy)}</div>`);
+    if (it.cta)  linhas.push(`<div><span style="color:var(--lime);font-weight:700">CTA:</span> ${escapeHtml(it.cta)}</div>`);
+    return `<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:0.78rem;color:var(--lime);margin-bottom:3px;letter-spacing:0.04em">Inspiração ${idx+1}</div>${linhas.join('')}</div>`;
+  }).join('');
+}
+
 function atualizarPreview() {
   const dia      = document.getElementById('b-dia').value;
   const fase     = document.getElementById('b-fase').value;
   const video    = document.getElementById('b-video').value;
   const top      = document.getElementById('b-top').value;
-  const roteiros = document.getElementById('b-roteiros').value;
   const trend    = document.getElementById('b-trend').value;
+  const insp     = lerInspiracoesDoForm();
 
   document.getElementById('prev-sub').textContent = dia ? DIAS_BOL[dia] : 'Selecione um dia';
   document.getElementById('prev-fase').innerHTML = fase ? escapeHtml(fase) : '—';
   document.getElementById('prev-video').innerHTML = video ? escapeHtml(video) : '—';
   document.getElementById('prev-top').innerHTML = renderListaPreview(top);
-  document.getElementById('prev-roteiros').innerHTML = renderListaPreview(roteiros);
+  document.getElementById('prev-inspiracoes').innerHTML = renderInspiracoesPreview(insp);
   document.getElementById('prev-trend').innerHTML = trend ? escapeHtml(trend) : '—';
 }
 
@@ -1207,12 +1309,13 @@ async function salvarBoletim() {
   const fase     = document.getElementById('b-fase').value.trim();
   const video    = document.getElementById('b-video').value.trim();
   const top      = document.getElementById('b-top').value.trim();
-  const roteiros = document.getElementById('b-roteiros').value.trim();
   const trend    = document.getElementById('b-trend').value.trim();
+  const insp     = lerInspiracoesDoForm();
+  const inspComConteudo = insp.filter(it => it.hook || it.copy || it.cta);
 
-  if (!dia || !fase || !video || !top || !roteiros || !trend) {
+  if (!dia || !fase || !video || !top || !trend || inspComConteudo.length === 0) {
     msg.className = 'form-msg error';
-    msg.textContent = 'Preencha todos os campos antes de salvar.';
+    msg.textContent = 'Preencha todos os campos (incluindo pelo menos uma inspiração) antes de salvar.';
     return;
   }
 
@@ -1224,7 +1327,7 @@ async function salvarBoletim() {
     fase_campanha: fase,
     video_performatico: video,
     top_videos_promo: top,
-    roteiros_ganchos: roteiros,
+    roteiros_ganchos: JSON.stringify(insp),
     trend_musica_viral: trend
   };
 
@@ -1293,8 +1396,8 @@ async function carregarBoletim() {
     document.getElementById('b-fase').value     = b.fase_campanha || '';
     document.getElementById('b-video').value    = b.video_performatico || '';
     document.getElementById('b-top').value      = b.top_videos_promo || '';
-    document.getElementById('b-roteiros').value = b.roteiros_ganchos || '';
     document.getElementById('b-trend').value    = b.trend_musica_viral || '';
+    popularInspiracoesNoForm(parseInspiracoes(b.roteiros_ganchos));
     atualizarPreview();
     msg.className = 'form-msg success';
     msg.textContent = `✅ Boletim do Dia ${dia} carregado.`;
@@ -1310,8 +1413,8 @@ function gerarTextoBoletim() {
   const fase     = document.getElementById('b-fase').value.trim();
   const video    = document.getElementById('b-video').value.trim();
   const top      = document.getElementById('b-top').value.trim();
-  const roteiros = document.getElementById('b-roteiros').value.trim();
   const trend    = document.getElementById('b-trend').value.trim();
+  const insp     = lerInspiracoesDoForm();
 
   const subtitulo = dia ? DIAS_BOL[dia] : '';
   const linhas = [];
@@ -1336,10 +1439,15 @@ function gerarTextoBoletim() {
     });
     linhas.push('');
   }
-  if (roteiros) {
-    linhas.push('💬 *ROTEIROS / GANCHOS DO DIA*');
-    roteiros.split('\n').map(l => l.trim()).filter(Boolean).forEach((l, i) => {
-      linhas.push(`${i+1}. ${l}`);
+  const inspCom = insp.filter(it => it.hook || it.copy || it.cta);
+  if (inspCom.length) {
+    linhas.push('💬 *INSPIRAÇÕES DO DIA*');
+    inspCom.forEach((it, idx) => {
+      linhas.push('');
+      linhas.push(`*Inspiração ${idx+1}*`);
+      if (it.hook) linhas.push(`Hook: ${it.hook}`);
+      if (it.copy) linhas.push(`Copy: ${it.copy}`);
+      if (it.cta)  linhas.push(`CTA: ${it.cta}`);
     });
     linhas.push('');
   }
@@ -1377,8 +1485,15 @@ async function copiarBoletim() {
 function htmlPdfBoletim(b) {
   const subtitulo = DIAS_BOL[b.dia] || ('Dia ' + b.dia);
   const linhasTop = (b.top_videos_promo || '').split('\n').map(l => l.trim()).filter(Boolean);
-  const linhasRot = (b.roteiros_ganchos || '').split('\n').map(l => l.trim()).filter(Boolean);
+  const inspArr = parseInspiracoes(b.roteiros_ganchos).filter(it => it && (it.hook || it.copy || it.cta));
   const item = (n, txt) => `<div class="bp-item"><span class="bp-num">${n}</span><span>${escapeHtml(txt)}</span></div>`;
+  const inspBlock = inspArr.length ? inspArr.map((it, idx) => {
+    const linhas = [];
+    if (it.hook) linhas.push(`<div class="bp-line"><span class="bp-tag">Hook</span> ${escapeHtml(it.hook)}</div>`);
+    if (it.copy) linhas.push(`<div class="bp-line"><span class="bp-tag">Copy</span> ${escapeHtml(it.copy)}</div>`);
+    if (it.cta)  linhas.push(`<div class="bp-line"><span class="bp-tag">CTA</span> ${escapeHtml(it.cta)}</div>`);
+    return `<div class="bp-insp"><div class="bp-insp-title">Inspiração ${idx+1}</div>${linhas.join('')}</div>`;
+  }).join('') : '—';
   return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Boletim Dia ${b.dia} · Blessy</title>
 <style>
   @page { size: A4; margin: 14mm; }
@@ -1397,6 +1512,11 @@ function htmlPdfBoletim(b) {
   .bp-item { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: rgba(255,255,255,0.78); font-weight: 600; line-height: 1.5; }
   .bp-item:last-child { border-bottom: none; }
   .bp-num { font-weight: 800; font-size: 13px; color: #BFF9A4; min-width: 18px; }
+  .bp-insp { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .bp-insp:last-child { border-bottom: none; }
+  .bp-insp-title { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: #BFF9A4; margin-bottom: 4px; }
+  .bp-line { font-size: 12px; color: rgba(255,255,255,0.78); line-height: 1.6; padding: 2px 0; word-break: break-word; }
+  .bp-tag { display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #BFF9A4; min-width: 36px; }
   .pdf-footer { padding: 14px 22px; border-top: 1px solid rgba(255,255,255,0.07); text-align: center; }
   .pdf-brand { font-size: 16px; color: #BFF9A4; letter-spacing: 0.06em; font-weight: 800; }
   .pdf-tagline { font-size: 9px; color: rgba(255,255,255,0.3); margin-top: 3px; font-weight: 700; letter-spacing: 0.08em; }
@@ -1411,7 +1531,7 @@ function htmlPdfBoletim(b) {
     <div class="bp-card"><div class="bp-label">📩 Fase da Campanha</div><div class="bp-content">${escapeHtml(b.fase_campanha || '—')}</div></div>
     <div class="bp-card"><div class="bp-label">🔥 Vídeo mais performático (ontem)</div><div class="bp-content bp-link">${escapeHtml(b.video_performatico || '—')}</div></div>
     <div class="bp-card"><div class="bp-label">🚀 Top vídeos da promo</div><div class="bp-content">${linhasTop.length ? linhasTop.map((l,i)=>item(i+1,l)).join('') : '—'}</div></div>
-    <div class="bp-card"><div class="bp-label">💬 Roteiros / Ganchos do dia</div><div class="bp-content">${linhasRot.length ? linhasRot.map((l,i)=>item(i+1,l)).join('') : '—'}</div></div>
+    <div class="bp-card"><div class="bp-label">💬 Inspirações do dia</div><div class="bp-content">${inspBlock}</div></div>
     <div class="bp-card"><div class="bp-label">🎵 Trend / Dica do dia</div><div class="bp-content">${escapeHtml(b.trend_musica_viral || '—')}</div></div>
   </div>
   <div class="pdf-footer">
@@ -1448,7 +1568,7 @@ async function baixarPdfFormulario() {
     fase_campanha: document.getElementById('b-fase').value,
     video_performatico: document.getElementById('b-video').value,
     top_videos_promo: document.getElementById('b-top').value,
-    roteiros_ganchos: document.getElementById('b-roteiros').value,
+    roteiros_ganchos: JSON.stringify(lerInspiracoesDoForm()),
     trend_musica_viral: document.getElementById('b-trend').value
   };
   abrirPdfBoletim(b);
@@ -1475,23 +1595,23 @@ async function copiarBoletimPorDia(dia) {
       fase: document.getElementById('b-fase').value,
       video: document.getElementById('b-video').value,
       top: document.getElementById('b-top').value,
-      roteiros: document.getElementById('b-roteiros').value,
       trend: document.getElementById('b-trend').value,
+      insp: lerInspiracoesDoForm()
     };
     document.getElementById('b-dia').value      = b.dia;
     document.getElementById('b-fase').value     = b.fase_campanha || '';
     document.getElementById('b-video').value    = b.video_performatico || '';
     document.getElementById('b-top').value      = b.top_videos_promo || '';
-    document.getElementById('b-roteiros').value = b.roteiros_ganchos || '';
     document.getElementById('b-trend').value    = b.trend_musica_viral || '';
+    popularInspiracoesNoForm(parseInspiracoes(b.roteiros_ganchos));
     const texto = gerarTextoBoletim();
     // restaura
     document.getElementById('b-dia').value      = back.dia;
     document.getElementById('b-fase').value     = back.fase;
     document.getElementById('b-video').value    = back.video;
     document.getElementById('b-top').value      = back.top;
-    document.getElementById('b-roteiros').value = back.roteiros;
     document.getElementById('b-trend').value    = back.trend;
+    popularInspiracoesNoForm(back.insp);
     atualizarPreview();
     try {
       await navigator.clipboard.writeText(texto);
@@ -1546,8 +1666,139 @@ async function carregarListaBoletins() {
   }
 }
 
+// ── RELATÓRIO: gerar HTML do PDF (estilo claro, A4) ──────────────
+function htmlPdfRelatorio(r) {
+  const dataLabel = DIAS[r.dia] || '';
+  const gmv = r.gmv_total != null ? fmt(r.gmv_total) : '—';
+  const meta = r.meta != null ? fmt(r.meta) : (META_DIA ? fmt(META_DIA) : '—');
+  let pct = '—';
+  if (r.gmv_total != null && (r.meta || META_DIA)) {
+    pct = ((r.gmv_total / (r.meta || META_DIA)) * 100).toFixed(1) + '%';
+  }
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Relatório Dia ${r.dia} · Blessy</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, system-ui, 'Segoe UI', sans-serif; background: #fff; color: #2E2A39; padding: 0; }
+  .pdf { background: #fff; border-radius: 14px; overflow: hidden; }
+  .pdf-header { background: #12382B; color: #fff; padding: 24px 26px; text-align: left; }
+  .pdf-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #BFF9A4; margin-bottom: 4px; }
+  .pdf-title { font-size: 28px; font-weight: 800; line-height: 1.1; }
+  .pdf-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; font-weight: 600; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 18px 22px; background: #fafafa; border-bottom: 1px solid #e5e7eb; }
+  .kpi { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; }
+  .kpi-label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7280; margin-bottom: 4px; }
+  .kpi-val { font-size: 18px; font-weight: 800; color: #12382B; }
+  .kpi-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+  .body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .card { border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; page-break-inside: avoid; }
+  .card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #1a5c46; margin-bottom: 6px; }
+  .card-content { font-size: 13px; color: #2E2A39; line-height: 1.6; word-break: break-word; white-space: pre-wrap; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; }
+  .pill-amber { background: rgba(217,119,6,0.1); color: #92400e; }
+  .pill-gray { background: #f3f4f6; color: #6b7280; }
+  .pdf-footer { padding: 14px 22px; border-top: 1px solid #e5e7eb; text-align: center; color: #9ca3af; font-size: 11px; font-weight: 600; }
+  @media screen { body { padding: 24px; max-width: 720px; margin: 0 auto; } }
+</style></head><body><div class="pdf">
+  <div class="pdf-header">
+    <div class="pdf-eyebrow">Relatório de Fechamento · Campanha Aniversário</div>
+    <div class="pdf-title">Dia ${r.dia} · ${escapeHtml(dataLabel)}</div>
+    <div class="pdf-sub">TikTok Shop · Blessy Greens &amp; Superfoods</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">GMV do dia</div><div class="kpi-val">${gmv}</div><div class="kpi-sub">Realizado</div></div>
+    <div class="kpi"><div class="kpi-label">Meta do dia</div><div class="kpi-val">${meta}</div><div class="kpi-sub">Ritmo necessário</div></div>
+    <div class="kpi"><div class="kpi-label">% da meta</div><div class="kpi-val">${pct}</div><div class="kpi-sub">Realizado / meta</div></div>
+    <div class="kpi"><div class="kpi-label">Vídeos publicados</div><div class="kpi-val">${r.videos_publicados ?? '—'}</div><div class="kpi-sub">No dia</div></div>
+    <div class="kpi"><div class="kpi-label">Lives</div><div class="kpi-val">${r.lives_realizadas ?? '—'}</div><div class="kpi-sub">No dia</div></div>
+    <div class="kpi"><div class="kpi-label">Contingência</div><div class="kpi-val">${r.contingencia_acionada ? '<span class="pill pill-amber">Acionada</span>' : '<span class="pill pill-gray">Não</span>'}</div><div class="kpi-sub">Status do dia</div></div>
+  </div>
+  <div class="body">
+    <div class="card"><div class="card-label">🔥 Vídeo Top Retenção / Hook</div><div class="card-content">${escapeHtml(r.video_top_retencao_hook || '—')}</div></div>
+    <div class="card"><div class="card-label">💰 Vídeo Top GMV</div><div class="card-content">${escapeHtml(r.video_top_gmv || '—')}</div></div>
+    <div class="card"><div class="card-label">📝 Observações do Dia</div><div class="card-content">${escapeHtml(r.observacoes || '—')}</div></div>
+  </div>
+  <div class="pdf-footer">Blessy Greens &amp; Superfoods · Campanha Aniversário · Uso Interno</div>
+</div>
+<script>setTimeout(()=>{window.print();},250);</script>
+</body></html>`;
+}
+
+async function baixarPdfRelatorio(dia) {
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE}?dia=eq.${dia}&select=*`, { headers: headers() });
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) { alert('Relatório não encontrado.'); return; }
+    const w = window.open('', '_blank');
+    if (!w) { alert('O navegador bloqueou a janela do PDF. Habilite popups e tente de novo.'); return; }
+    w.document.open();
+    w.document.write(htmlPdfRelatorio(dados[0]));
+    w.document.close();
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function editarRelatorio(dia) {
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE}?dia=eq.${dia}&select=*`, { headers: headers() });
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) { alert('Relatório não encontrado.'); return; }
+    const r = dados[0];
+    showSection('s08');
+    document.getElementById('f-dia').value         = String(r.dia);
+    document.getElementById('f-gmv').value         = r.gmv_total ?? '';
+    document.getElementById('f-videos').value      = r.videos_publicados ?? '';
+    document.getElementById('f-lives').value       = r.lives_realizadas ?? '';
+    document.getElementById('f-hook').value        = r.video_top_retencao_hook || '';
+    document.getElementById('f-topgmv').value      = r.video_top_gmv || '';
+    document.getElementById('f-contingencia').checked = !!r.contingencia_acionada;
+    document.getElementById('f-obs').value         = r.observacoes || '';
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function carregarListaRelatorios() {
+  const tbody = document.getElementById('relatorios-body');
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="8">Carregando...</td></tr>';
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE}?select=*&order=dia.asc`, { headers: headers() });
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) {
+      tbody.innerHTML = '<tr class="loading-row"><td colspan="8">Nenhum relatório lançado ainda. Lance o primeiro na aba 08.</td></tr>';
+      return;
+    }
+    let rows = '';
+    for (const r of dados) {
+      const dataLabel = DIAS[r.dia] || '—';
+      const upd = r.updated_at ? new Date(r.updated_at).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }) : '—';
+      const gmvLabel = r.gmv_total != null ? fmt(r.gmv_total) : '—';
+      const obsPrev = (r.observacoes || '').slice(0, 80);
+      rows += `<tr>
+        <td><strong>D${r.dia}</strong></td>
+        <td>${escapeHtml(dataLabel)}</td>
+        <td>${gmvLabel}</td>
+        <td>${r.videos_publicados ?? '—'}</td>
+        <td>${r.lives_realizadas ?? '—'}</td>
+        <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(r.observacoes||'')}">${escapeHtml(obsPrev) || '—'}</td>
+        <td style="color:#6b7280">${upd}</td>
+        <td>
+          <button class="refresh-btn" onclick="baixarPdfRelatorio(${r.dia})">🖨️ PDF</button>
+          <button class="refresh-btn" onclick="editarRelatorio(${r.dia})">✏️ Editar</button>
+        </td>
+      </tr>`;
+    }
+    tbody.innerHTML = rows;
+  } catch(e) {
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="8">Erro ao carregar. Detalhe: ' + escapeHtml(e.message) + '</td></tr>';
+  }
+}
+
 // ── BOLETIM: bind do preview ao vivo ─────────────────────────────
-['b-dia','b-fase','b-video','b-top','b-roteiros','b-trend'].forEach(id => {
+const bindPreviewIds = [
+  'b-dia','b-fase','b-video','b-top','b-trend',
+  'b-insp1-hook','b-insp1-copy','b-insp1-cta',
+  'b-insp2-hook','b-insp2-copy','b-insp2-cta',
+  'b-insp3-hook','b-insp3-copy','b-insp3-cta'
+];
+bindPreviewIds.forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', atualizarPreview);
   if (el) el.addEventListener('change', atualizarPreview);
@@ -1567,6 +1818,7 @@ function showSection(id) {
   document.querySelector('.main').scrollTo(0, 0);
   if (id === 's07') carregarDados();
   if (id === 's10') carregarListaBoletins();
+  if (id === 's11') carregarListaRelatorios();
 }
 
 links.forEach(link => link.addEventListener('click', () => showSection(link.dataset.section)));
