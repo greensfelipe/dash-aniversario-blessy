@@ -638,11 +638,11 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
         <tr>
           <th>Dia</th><th>Data</th><th>Meta</th><th>GMV Total</th><th>% Meta</th>
           <th>Vídeos</th><th>Lives</th><th>Top Hook</th><th>Top GMV</th>
-          <th>Contingência</th><th>Obs.</th>
+          <th>Contingência</th><th>Obs.</th><th>Ações</th>
         </tr>
       </thead>
       <tbody id="tracker-body">
-        <tr class="loading-row"><td colspan="11">Carregando dados...</td></tr>
+        <tr class="loading-row"><td colspan="12">Carregando dados...</td></tr>
       </tbody>
       <tfoot>
         <tr class="total-row">
@@ -650,7 +650,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
           <td id="total-meta">—</td>
           <td id="total-gmv">—</td>
           <td id="total-pct">—</td>
-          <td colspan="6"></td>
+          <td colspan="7"></td>
         </tr>
       </tfoot>
     </table>
@@ -1019,7 +1019,7 @@ function atualizarMetas() {
 // ── CARREGAR DADOS DO SUPABASE ───────────────────────────────────
 async function carregarDados() {
   const tbody = document.getElementById('tracker-body');
-  tbody.innerHTML = '<tr class="loading-row"><td colspan="11">Carregando...</td></tr>';
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="12">Carregando...</td></tr>';
 
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE}?select=*&order=dia.asc`, {
@@ -1038,7 +1038,7 @@ async function carregarDados() {
           <td><strong>D${d}</strong></td>
           <td>${DIAS[d]}</td>
           <td>${metaDiaTxt}</td>
-          <td colspan="8" style="color:#9ca3af;font-style:italic">Aguardando lançamento de Isabel</td>
+          <td colspan="9" style="color:#9ca3af;font-style:italic">Aguardando lançamento de Isabel</td>
         </tr>`;
       }
       tbody.innerHTML = rows;
@@ -1072,13 +1072,14 @@ async function carregarDados() {
           <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.video_top_gmv||''}">${item.video_top_gmv || '—'}</td>
           <td>${item.contingencia_acionada ? '<span class="pill pill-amber">Sim</span>' : '<span style="color:#9ca3af">Não</span>'}</td>
           <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.observacoes||''}">${item.observacoes || '—'}</td>
+          <td><button class="refresh-btn" style="border-color:#fca5a5;color:var(--red)" onclick="excluirRelatorio(${d})">🗑️</button></td>
         </tr>`;
       } else {
         rows += `<tr>
           <td><strong>D${d}</strong></td>
           <td>${DIAS[d]}</td>
           <td>${metaDiaTxt}</td>
-          <td colspan="8" style="color:#9ca3af;font-style:italic">Aguardando lançamento de Isabel</td>
+          <td colspan="9" style="color:#9ca3af;font-style:italic">Aguardando lançamento de Isabel</td>
         </tr>`;
       }
     }
@@ -1101,7 +1102,7 @@ async function carregarDados() {
     document.getElementById('total-pct').textContent = OKR ? fmtPct(totalGMV, OKR) : '—';
 
   } catch(e) {
-    tbody.innerHTML = '<tr class="loading-row"><td colspan="11">Erro ao carregar dados. Verifique a conexão.</td></tr>';
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="12">Erro ao carregar dados. Verifique a conexão.</td></tr>';
     console.error(e);
   }
 }
@@ -1641,6 +1642,7 @@ async function carregarListaBoletins() {
           <button class="refresh-btn" onclick="copiarBoletimPorDia(${b.dia})">📋 Copiar</button>
           <button class="refresh-btn" onclick="baixarPdfPorDia(${b.dia})">🖨️ PDF</button>
           <button class="refresh-btn" onclick="editarBoletim(${b.dia})">✏️ Editar</button>
+          <button class="refresh-btn" style="border-color:#fca5a5;color:var(--red)" onclick="excluirBoletim(${b.dia})">🗑️ Excluir</button>
         </td>
       </tr>`;
     }
@@ -1739,6 +1741,31 @@ async function editarRelatorio(dia) {
   } catch(e) { alert('Erro: ' + e.message); }
 }
 
+async function excluirRelatorio(dia) {
+  if (!confirm(`Excluir o relatório do Dia ${dia}? Essa ação remove o registro do Tracker e do histórico — não tem desfazer.`)) return;
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE}?dia=eq.${dia}`, {
+      method: 'DELETE',
+      headers: { ...headers(), 'Prefer': 'return=minimal' }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    carregarDados();
+    carregarListaRelatorios();
+  } catch(e) { alert('Erro ao excluir: ' + e.message); }
+}
+
+async function excluirBoletim(dia) {
+  if (!confirm(`Excluir o boletim do Dia ${dia}? Não tem desfazer.`)) return;
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE_BOL}?dia=eq.${dia}`, {
+      method: 'DELETE',
+      headers: { ...headers(), 'Prefer': 'return=minimal' }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    carregarListaBoletins();
+  } catch(e) { alert('Erro ao excluir: ' + e.message); }
+}
+
 async function carregarListaRelatorios() {
   const tbody = document.getElementById('relatorios-body');
   tbody.innerHTML = '<tr class="loading-row"><td colspan="8">Carregando...</td></tr>';
@@ -1766,6 +1793,7 @@ async function carregarListaRelatorios() {
         <td>
           <button class="refresh-btn" onclick="baixarPdfRelatorio(${r.dia})">🖨️ PDF</button>
           <button class="refresh-btn" onclick="editarRelatorio(${r.dia})">✏️ Editar</button>
+          <button class="refresh-btn" style="border-color:#fca5a5;color:var(--red)" onclick="excluirRelatorio(${r.dia})">🗑️ Excluir</button>
         </td>
       </tr>`;
     }
