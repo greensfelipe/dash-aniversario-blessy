@@ -208,6 +208,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
     <a class="sidebar-link" data-section="s07"><span class="num">07</span> Tracker de GMV</a>
     <a class="sidebar-link" data-section="s08"><span class="num">08</span> 📥 Lançar Relatório</a>
     <a class="sidebar-link" data-section="s09"><span class="num">09</span> 📰 Gerar Boletim</a>
+    <a class="sidebar-link" data-section="s10"><span class="num">10</span> 🗂️ Boletins Feitos</a>
   </div>
   <div class="sidebar-footer">Campanha Aniversário &middot; TikTok Shop<br>OKR R$ 250k &middot; 30/04 → 12/05</div>
 </nav>
@@ -808,6 +809,7 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn-submit" id="btn-salvar-boletim" onclick="salvarBoletim()">💾 Salvar Boletim</button>
         <button class="btn-submit" style="background:#fff;color:var(--green-dark);border:1px solid var(--green-dark)" onclick="copiarBoletim()">📋 Copiar pro WhatsApp</button>
+        <button class="btn-submit" style="background:#fff;color:var(--green-dark);border:1px solid var(--green-dark)" onclick="baixarPdfFormulario()">🖨️ Baixar PDF</button>
         <button class="btn-submit" style="background:#fff;color:var(--charcoal);border:1px solid #d1d5db" onclick="carregarBoletim()">↻ Carregar do dia</button>
       </div>
       <div id="boletim-msg" class="form-msg"></div>
@@ -854,7 +856,39 @@ tbody tr.total-row{font-weight:700;background:#f9fafb;border-top:2px solid #e5e7
   </div>
 
   <div class="callout callout-blue" style="margin-top:20px">
-    <strong>Como funciona:</strong> Carol seleciona o dia, preenche os campos e clica em <strong>Salvar Boletim</strong>. O preview à direita atualiza ao vivo. Depois é só clicar em <strong>📋 Copiar pro WhatsApp</strong> e colar no grupo de creators. Se já existe um boletim salvo para o dia, "↻ Carregar do dia" traz os dados.
+    <strong>Como funciona:</strong> Carol seleciona o dia, preenche os campos e clica em <strong>Salvar Boletim</strong>. O preview à direita atualiza ao vivo. Depois é só clicar em <strong>📋 Copiar pro WhatsApp</strong> e colar no grupo de creators. Se já existe um boletim salvo para o dia, "↻ Carregar do dia" traz os dados. Todos os boletins salvos ficam listados na aba <strong>10 · Boletins Feitos</strong>.
+  </div>
+  <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
+</div>
+
+<!-- S10 — BOLETINS FEITOS -->
+<div id="s10" class="section">
+  <h1 class="section-title">🗂️ Boletins Feitos</h1>
+  <p class="section-subtitle">Todos os boletins salvos no Supabase — copie pro WhatsApp, baixe PDF ou edite</p>
+
+  <div class="table-wrapper">
+    <div class="table-title">
+      Histórico de Boletins
+      <button class="refresh-btn" onclick="carregarListaBoletins()">↻ Atualizar</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50px">Dia</th>
+          <th style="width:140px">Data</th>
+          <th>Resumo da fase</th>
+          <th style="width:140px">Atualizado em</th>
+          <th style="width:340px">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="boletins-body">
+        <tr class="loading-row"><td colspan="5">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue" style="margin-top:16px">
+    <strong>Dica:</strong> O botão <strong>🖨️ Baixar PDF</strong> abre uma janela formatada e usa o diálogo de impressão do navegador — escolha <em>"Salvar como PDF"</em> ou <em>"Microsoft Print to PDF"</em> como destino.
   </div>
   <div class="section-footer">Blessy Greens &amp; Superfoods &middot; Campanha Aniversário &middot; Uso Interno</div>
 </div>
@@ -1339,6 +1373,179 @@ async function copiarBoletim() {
   }
 }
 
+// ── BOLETIM: gerar HTML do PDF (card escuro, layout A4) ──────────
+function htmlPdfBoletim(b) {
+  const subtitulo = DIAS_BOL[b.dia] || ('Dia ' + b.dia);
+  const linhasTop = (b.top_videos_promo || '').split('\n').map(l => l.trim()).filter(Boolean);
+  const linhasRot = (b.roteiros_ganchos || '').split('\n').map(l => l.trim()).filter(Boolean);
+  const item = (n, txt) => `<div class="bp-item"><span class="bp-num">${n}</span><span>${escapeHtml(txt)}</span></div>`;
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Boletim Dia ${b.dia} · Blessy</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, system-ui, 'Segoe UI', sans-serif; background: #fff; color: #111; padding: 0; }
+  .pdf { background: #0f1e16; border-radius: 14px; overflow: hidden; color: #fff; }
+  .pdf-header { padding: 22px 24px 18px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .pdf-badge { display: inline-block; background: rgba(191,249,164,0.12); border: 1px solid rgba(191,249,164,0.25); border-radius: 99px; padding: 4px 14px; font-size: 9px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #BFF9A4; margin-bottom: 8px; }
+  .pdf-title { font-size: 30px; color: #BFF9A4; letter-spacing: 0.02em; line-height: 1; font-weight: 800; }
+  .pdf-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 6px; font-weight: 700; letter-spacing: 0.06em; }
+  .pdf-body { padding: 16px 18px 22px; display: flex; flex-direction: column; gap: 10px; }
+  .bp-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px 16px; page-break-inside: avoid; }
+  .bp-label { font-size: 9px; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #BFF9A4; margin-bottom: 8px; }
+  .bp-content { font-size: 12px; color: rgba(255,255,255,0.78); font-weight: 600; line-height: 1.6; word-break: break-word; white-space: pre-wrap; }
+  .bp-link { color: #BFF9A4; word-break: break-all; }
+  .bp-item { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: rgba(255,255,255,0.78); font-weight: 600; line-height: 1.5; }
+  .bp-item:last-child { border-bottom: none; }
+  .bp-num { font-weight: 800; font-size: 13px; color: #BFF9A4; min-width: 18px; }
+  .pdf-footer { padding: 14px 22px; border-top: 1px solid rgba(255,255,255,0.07); text-align: center; }
+  .pdf-brand { font-size: 16px; color: #BFF9A4; letter-spacing: 0.06em; font-weight: 800; }
+  .pdf-tagline { font-size: 9px; color: rgba(255,255,255,0.3); margin-top: 3px; font-weight: 700; letter-spacing: 0.08em; }
+  @media screen { body { padding: 24px; max-width: 720px; margin: 0 auto; } }
+</style></head><body><div class="pdf">
+  <div class="pdf-header">
+    <div class="pdf-badge">Campanha Aniversário · TikTok Shop</div>
+    <div class="pdf-title">Boletim do Dia</div>
+    <div class="pdf-sub">${escapeHtml(subtitulo)}</div>
+  </div>
+  <div class="pdf-body">
+    <div class="bp-card"><div class="bp-label">📩 Fase da Campanha</div><div class="bp-content">${escapeHtml(b.fase_campanha || '—')}</div></div>
+    <div class="bp-card"><div class="bp-label">🔥 Vídeo mais performático (ontem)</div><div class="bp-content bp-link">${escapeHtml(b.video_performatico || '—')}</div></div>
+    <div class="bp-card"><div class="bp-label">🚀 Top vídeos da promo</div><div class="bp-content">${linhasTop.length ? linhasTop.map((l,i)=>item(i+1,l)).join('') : '—'}</div></div>
+    <div class="bp-card"><div class="bp-label">💬 Roteiros / Ganchos do dia</div><div class="bp-content">${linhasRot.length ? linhasRot.map((l,i)=>item(i+1,l)).join('') : '—'}</div></div>
+    <div class="bp-card"><div class="bp-label">🎵 Trend / Dica do dia</div><div class="bp-content">${escapeHtml(b.trend_musica_viral || '—')}</div></div>
+  </div>
+  <div class="pdf-footer">
+    <div class="pdf-brand">Blessy Greens &amp; Superfoods 🌿</div>
+    <div class="pdf-tagline">Campanha Aniversário · Bora bater essa meta! 💪</div>
+  </div>
+</div>
+<script>setTimeout(()=>{window.print();},250);</script>
+</body></html>`;
+}
+
+function abrirPdfBoletim(b) {
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('O navegador bloqueou a janela do PDF. Habilite popups e tente de novo.');
+    return;
+  }
+  w.document.open();
+  w.document.write(htmlPdfBoletim(b));
+  w.document.close();
+}
+
+async function baixarPdfFormulario() {
+  // gera PDF a partir do que está preenchido no form (sem precisar ter salvado)
+  const dia = parseInt(document.getElementById('b-dia').value);
+  if (!dia) {
+    const msg = document.getElementById('boletim-msg');
+    msg.className = 'form-msg error';
+    msg.textContent = 'Selecione um dia antes de gerar PDF.';
+    return;
+  }
+  const b = {
+    dia,
+    fase_campanha: document.getElementById('b-fase').value,
+    video_performatico: document.getElementById('b-video').value,
+    top_videos_promo: document.getElementById('b-top').value,
+    roteiros_ganchos: document.getElementById('b-roteiros').value,
+    trend_musica_viral: document.getElementById('b-trend').value
+  };
+  abrirPdfBoletim(b);
+}
+
+async function baixarPdfPorDia(dia) {
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE_BOL}?dia=eq.${dia}&select=*`, { headers: headers() });
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) { alert('Boletim não encontrado.'); return; }
+    abrirPdfBoletim(dados[0]);
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+async function copiarBoletimPorDia(dia) {
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE_BOL}?dia=eq.${dia}&select=*`, { headers: headers() });
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) { alert('Boletim não encontrado.'); return; }
+    const b = dados[0];
+    // popula form temporariamente pra reusar gerarTextoBoletim
+    const back = {
+      dia: document.getElementById('b-dia').value,
+      fase: document.getElementById('b-fase').value,
+      video: document.getElementById('b-video').value,
+      top: document.getElementById('b-top').value,
+      roteiros: document.getElementById('b-roteiros').value,
+      trend: document.getElementById('b-trend').value,
+    };
+    document.getElementById('b-dia').value      = b.dia;
+    document.getElementById('b-fase').value     = b.fase_campanha || '';
+    document.getElementById('b-video').value    = b.video_performatico || '';
+    document.getElementById('b-top').value      = b.top_videos_promo || '';
+    document.getElementById('b-roteiros').value = b.roteiros_ganchos || '';
+    document.getElementById('b-trend').value    = b.trend_musica_viral || '';
+    const texto = gerarTextoBoletim();
+    // restaura
+    document.getElementById('b-dia').value      = back.dia;
+    document.getElementById('b-fase').value     = back.fase;
+    document.getElementById('b-video').value    = back.video;
+    document.getElementById('b-top').value      = back.top;
+    document.getElementById('b-roteiros').value = back.roteiros;
+    document.getElementById('b-trend').value    = back.trend;
+    atualizarPreview();
+    try {
+      await navigator.clipboard.writeText(texto);
+    } catch(_) {
+      const ta = document.createElement('textarea');
+      ta.value = texto; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(__){} document.body.removeChild(ta);
+    }
+    alert(`✅ Boletim do Dia ${dia} copiado para a área de transferência.`);
+  } catch(e) { alert('Erro: ' + e.message); }
+}
+
+function editarBoletim(dia) {
+  document.getElementById('b-dia').value = String(dia);
+  showSection('s09');
+  carregarBoletim();
+}
+
+// ── BOLETIM: lista todos os boletins salvos ──────────────────────
+async function carregarListaBoletins() {
+  const tbody = document.getElementById('boletins-body');
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="5">Carregando...</td></tr>';
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${TABLE_BOL}?select=*&order=dia.asc`, { headers: headers() });
+    const dados = await res.json();
+    if (!Array.isArray(dados) || dados.length === 0) {
+      tbody.innerHTML = '<tr class="loading-row"><td colspan="5">Nenhum boletim salvo ainda. Crie o primeiro na aba 09.</td></tr>';
+      return;
+    }
+    let rows = '';
+    for (const b of dados) {
+      const labelCompleto = DIAS_BOL[b.dia] || ('Dia ' + b.dia);
+      const partes = labelCompleto.split('·').map(s => s.trim());
+      const dataLabel = partes[1] || labelCompleto;
+      const fasePrev = (b.fase_campanha || '').split('\n')[0].slice(0, 100);
+      const upd = b.updated_at ? new Date(b.updated_at).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }) : '—';
+      rows += `<tr>
+        <td><strong>D${b.dia}</strong></td>
+        <td>${escapeHtml(dataLabel)}</td>
+        <td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(b.fase_campanha||'')}">${escapeHtml(fasePrev) || '—'}</td>
+        <td style="color:#6b7280">${upd}</td>
+        <td>
+          <button class="refresh-btn" onclick="copiarBoletimPorDia(${b.dia})">📋 Copiar</button>
+          <button class="refresh-btn" onclick="baixarPdfPorDia(${b.dia})">🖨️ PDF</button>
+          <button class="refresh-btn" onclick="editarBoletim(${b.dia})">✏️ Editar</button>
+        </td>
+      </tr>`;
+    }
+    tbody.innerHTML = rows;
+  } catch(e) {
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="5">Erro ao carregar. Detalhe: ' + escapeHtml(e.message) + '</td></tr>';
+  }
+}
+
 // ── BOLETIM: bind do preview ao vivo ─────────────────────────────
 ['b-dia','b-fase','b-video','b-top','b-roteiros','b-trend'].forEach(id => {
   const el = document.getElementById(id);
@@ -1359,6 +1566,7 @@ function showSection(id) {
   if (link) link.classList.add('active');
   document.querySelector('.main').scrollTo(0, 0);
   if (id === 's07') carregarDados();
+  if (id === 's10') carregarListaBoletins();
 }
 
 links.forEach(link => link.addEventListener('click', () => showSection(link.dataset.section)));
